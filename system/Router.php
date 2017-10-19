@@ -1,5 +1,5 @@
 <?php
-namespace app;
+namespace app\system;
 
 class Router
 {
@@ -20,8 +20,8 @@ class Router
             $actionName = $url[2];
         }
 
-        $controllerName = static::CONTROLLERS_NAMESPACE.ucfirst($controllerName).'Controller';
-        $actionName = 'action'.$actionName;
+        $controllerName = static::CONTROLLERS_NAMESPACE .  ucfirst($controllerName) . 'Controller';
+        $actionName = 'action' . $actionName;
 
         $controller = new $controllerName;
 

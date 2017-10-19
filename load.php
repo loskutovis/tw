@@ -1,7 +1,11 @@
 <?php
-require_once './system/Router.php';
-require_once './system/Model.php';
-require_once './system/View.php';
-require_once './system/Controller.php';
+require_once './system/Autoloader.php';
 
-app\Router::start();
+$autoloader = new \app\system\Autoloader();
+$autoloader->addNamespace('app\\system', './system');
+$autoloader->addNamespace('app\\controllers', './controllers');
+$autoloader->addNamespace('app\\models', './models');
+$autoloader->addNamespace('app\\views', './views');
+$autoloader->register();
+
+\app\system\Router::start();
