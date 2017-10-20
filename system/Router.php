@@ -1,14 +1,15 @@
 <?php
 namespace app\system;
 
+use app\controllers\SiteController;
+use Error;
+
 class Router
 {
-    const CONTROLLERS_NAMESPACE = 'app\\controllers\\';
-
     public static function start()
     {
         $controllerName = 'site';
-        $actionName = 'index';
+        $actionName = 'Index';
 
         $url = explode('/', $_SERVER['REQUEST_URI']);
 
@@ -20,15 +21,23 @@ class Router
             $actionName = $url[2];
         }
 
-        $controllerName = static::CONTROLLERS_NAMESPACE .  ucfirst($controllerName) . 'Controller';
-        $actionName = 'action' . $actionName;
+        $controller = Controller::NAMESPACE .  ucfirst($controllerName) . 'Controller';
+        $actionName = 'action' . ucfirst($actionName);
 
-        $controller = new $controllerName;
+        try {
+            $controller = new $controller($controllerName);
 
-        if (method_exists($controller, $actionName)) {
-            $controller->$actionName;
-        } else {
-            var_dump($controllerName, $actionName);
+            if (method_exists($controller, $actionName)) {
+                call_user_func_array([$controller, $actionName], []);
+            } else {
+                static::showError();
+            }
+        } catch (Error $error) {
+            static::showError();
         }
+    }
+
+    private static function showError() {
+        call_user_func_array([new SiteController('site'), 'actionError'], []);
     }
 }

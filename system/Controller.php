@@ -1,14 +1,41 @@
 <?php
-namespace app\controllers;
-
-use app\views\View;
+namespace app\system;
 
 class Controller {
-    public $model;
-    public $view;
+    const NAMESPACE = 'app\\controllers\\';
 
-    function __construct()
+    public $id;
+    public $layout;
+
+    private $view;
+
+    public function __construct($id)
     {
-        $this->view = new View();
+        $this->id = $id;
+        $this->layout = 'main';
+    }
+
+    public function getView() {
+        if ($this->view === null) {
+            $this->view = new View($this->id);
+        }
+
+        return $this->view;
+    }
+
+    public function setView($view) {
+        $this->view = $view;
+    }
+
+    public function render($template, $params = [])
+    {
+        $content = $this->renderPartial($template, $params);
+
+        return $this->getView()->render($this->layout, 'layouts', ['content' => $content]);
+    }
+
+    public function renderPartial($template, $params)
+    {
+        return $this->getView()->render($template, $this->id, $params);
     }
 }

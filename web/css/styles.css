@@ -1,0 +1,12 @@
+*{ margin: 0; padding: 0; font-size: 100%; }
+/* Страница ошибки*/
+.error-container{ padding: 25px 5%; font-size: 1.2rem; }
+.error-container h1{ font-size: 4rem; }
+/* Главная страница */
+.index-container{ margin: auto; }
+.alert-container{ margin-bottom: 20px; display: none; }
+#main-form{ margin-top: 50px; }
+#main-form .form-group{ min-width: 300px; }
+#main-form label{ width: 100%; }
+#main-form .form-control{ margin-top: 5px; }
+#form-submit{ cursor: pointer; margin-top: 10px; }

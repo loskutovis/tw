@@ -23,16 +23,20 @@ class Autoloader
 
     protected function autoload($class)
     {
+        $class = str_replace('app\\', '', $class);
         $pathParts = explode('\\', $class);
 
         if (is_array($pathParts)) {
-            $namespace = array_shift($pathParts);
+            $namespace = 'app\\'.array_shift($pathParts);
 
             if (!empty($this->namespacesMap[$namespace])) {
-                $filePath = $this->namespacesMap[$namespace] . '/' . implode('/', $pathParts) . '.php';
-                require_once $filePath;
+                $filePath = __DIR__.'/../'.$this->namespacesMap[$namespace] . '/' . implode('/', $pathParts) . '.php';
 
-                return true;
+                if (file_exists($filePath)) {
+                    require_once $filePath;
+
+                    return true;
+                }
             }
         }
 
