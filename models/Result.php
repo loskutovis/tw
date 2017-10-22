@@ -119,8 +119,13 @@ class Result extends Model
      */
     public static function getPage($url)
     {
+        if (strpos($url, 'http') != 0) {
+            $url = 'http://' . $url;
+        }
+
         $ch = curl_init($url);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
         $response = curl_exec($ch);
         curl_close($ch);
@@ -142,7 +147,7 @@ class Result extends Model
 
         switch ($type) {
             case 'link':
-                $pattern = "/<a[\s]{1}[^>]*href[^=]*=[ '\"\s]*([^ \"'>\s#]+)[^>]*>.*<\/a>/i";
+                $pattern = "/<a[\s]{1}[^>]*href[^=]*=[ '\"\s]*([^ \"'>\s#]+)[^>]*>(.+?)<\/a>/i";
 
                 break;
             case 'image':
