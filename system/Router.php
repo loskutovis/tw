@@ -4,8 +4,15 @@ namespace app\system;
 use app\controllers\SiteController;
 use Error;
 
+/**
+ * Class Router
+ * @package app\system
+ */
 class Router
 {
+    /**
+     * Старт обработки url
+     */
     public static function start()
     {
         $controllerName = 'site';
@@ -21,7 +28,7 @@ class Router
             $actionName = $url[2];
         }
 
-        $controller = Controller::NAMESPACE .  ucfirst($controllerName) . 'Controller';
+        $controller = Controller::CONTROLLER_NAMESPACE .  ucfirst($controllerName) . 'Controller';
         $actionName = 'action' . ucfirst($actionName);
 
         try {
@@ -37,6 +44,9 @@ class Router
         }
     }
 
+    /**
+     * Обработка ошибки 404
+     */
     private static function showError() {
         call_user_func_array([new SiteController('site'), 'actionError'], []);
     }

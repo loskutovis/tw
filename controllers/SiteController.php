@@ -2,6 +2,8 @@
 namespace app\controllers;
 
 use app\system\Controller;
+use app\models\Result;
+use app\system\Model;
 
 class SiteController extends Controller
 {
@@ -12,7 +14,18 @@ class SiteController extends Controller
 
     public function actionGetPage()
     {
-        echo json_encode($_POST);
+        if ($this->isAjax()) {
+            echo json_encode(Result::searchPage($_POST));
+        } else {
+            $this->actionError();
+        }
+    }
+
+    public function actionResult()
+    {
+        $result = Result::findAll();
+
+        echo $this->render('result', ['result' => $result]);
     }
 
     public function actionError()

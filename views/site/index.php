@@ -4,17 +4,23 @@
         <div class="form-group col-md-2 col-sm-6">
             <label>
                 Укажите адрес сайта<br/>
-                <input type="url" class="form-control" name="url" id="url" />
+                <input type="text" class="form-control" name="url" id="url" />
             </label>
             <br/>
 
             <label>
                 Выберите тип поиска<br/>
-                <select class="form-control" name="search_type" id="search_type">
+                <select class="form-control" name="search_type" id="search-type">
                     <option value="link">Ссылка</option>
                     <option value="image">Изображение</option>
                     <option value="text">Текст</option>
                 </select>
+            </label>
+            <br/>
+
+            <label id="search-label">
+                Введите текст для поиска<br/>
+                <input type="text" class="form-control" name="search_text" id="search-text" />
             </label>
             <br/>
 

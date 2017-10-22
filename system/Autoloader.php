@@ -1,10 +1,21 @@
 <?php
 namespace app\system;
 
+/**
+ * Class Autoloader
+ *
+ * @package app\system
+ */
 class Autoloader
 {
     protected $namespacesMap = [];
 
+    /**
+     * @param $namespace
+     * @param $rootDir
+     *
+     * @return bool
+     */
     public function addNamespace($namespace, $rootDir)
     {
         if (is_dir($rootDir)) {
@@ -16,11 +27,19 @@ class Autoloader
         return false;
     }
 
+    /**
+     *
+     */
     public function register()
     {
         spl_autoload_register([$this, 'autoload']);
     }
 
+    /**
+     * @param $class
+     *
+     * @return bool
+     */
     protected function autoload($class)
     {
         $class = str_replace('app\\', '', $class);
