@@ -5,7 +5,7 @@ use app\controllers\SiteController;
 use Error;
 
 /**
- * Class Router
+ * Обработка url
  * @package app\system
  */
 class Router
@@ -15,6 +15,7 @@ class Router
      */
     public static function start()
     {
+        $error = false;
         $controllerName = 'site';
         $actionName = 'Index';
 
@@ -37,17 +38,26 @@ class Router
             if (method_exists($controller, $actionName)) {
                 call_user_func_array([$controller, $actionName], []);
             } else {
-                static::showError();
+                $error = true;
             }
         } catch (Error $error) {
-            static::showError();
+            $error = true;
+        }
+
+        if ($error) {
+            $errorController = new SiteController('site');
+            $errorAction = 'actionError';
+
+            static::showError($errorController, $errorAction);
         }
     }
 
     /**
      * Обработка ошибки 404
+     * @param Controller $errorController контроллер для обработки ошибки
+     * @param string $errorAction обработчик ошибки
      */
-    private static function showError() {
-        call_user_func_array([new SiteController('site'), 'actionError'], []);
+    private static function showError($errorController, $errorAction) {
+        call_user_func_array([$errorController, $errorAction], []);
     }
 }

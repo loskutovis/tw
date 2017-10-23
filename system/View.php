@@ -8,21 +8,11 @@ namespace app\system;
  */
 class View
 {
-    private $name;
-
     /**
-     * View constructor.
-     * @param $viewName
-     */
-    public function __construct($viewName)
-    {
-        $this->name = $viewName;
-    }
-
-    /**
-     * @param $file
-     * @param $id
-     * @param array $params
+     * Выводит содержимое шаблона
+     * @param string $file путь к файлу шаблона
+     * @param string $id тип шаблона
+     * @param array $params параметры для вывода в шаблон
      *
      * @return string
      */

@@ -5,7 +5,9 @@ use PDO;
 use PDOException;
 
 /**
- * Class Model
+ * Модель
+ * @var string $tableName имя таблицы в БД
+ * @var mixed $db соединение с БД
  *
  * @package app\system
  */
@@ -14,8 +16,14 @@ abstract class Model
     private static $tableName;
     private static $db;
 
+    /**
+     * @return mixed
+     */
     public abstract function toArray();
 
+    /**
+     * @return mixed
+     */
     public static function getTableName()
     {
         return static::$tableName;
@@ -42,7 +50,6 @@ abstract class Model
     }
 
     /**
-     *
      * @return mixed
      */
     public static function getConnection()
@@ -52,7 +59,7 @@ abstract class Model
                 require_once __DIR__ . '/../config/config.php';
 
                 /**
-                 * @var $db mixed конфигурация БД
+                 * @var mixed $db конфигурация БД
                  */
                 $dsn = "mysql:host={$db['host']};dbname={$db['dbName']};charset={$db['charset']}";
 
@@ -74,7 +81,7 @@ abstract class Model
     }
 
     /**
-     * @param $params
+     * @param array $params
      *
      * @return array
      */

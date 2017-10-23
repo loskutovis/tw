@@ -3,6 +3,11 @@ namespace app\models;
 
 use app\system\Model;
 
+/**
+ * Класс для работы с адресами сайтов
+ *
+ * @package app\models
+ */
 class Url extends Model
 {
     private static $tableName = 'url';
@@ -18,7 +23,7 @@ class Url extends Model
     }
 
     /**
-     * @param $url
+     * @param string $url
      */
     public function setUrl($url)
     {
@@ -26,7 +31,7 @@ class Url extends Model
     }
 
     /**
-     * @param $url
+     * @param string $url
      *
      * @return mixed
      */

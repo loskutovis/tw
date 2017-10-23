@@ -4,10 +4,12 @@ namespace app\models;
 use app\system\Model;
 
 /**
- * Class Result
- * @var $url
- * @var $found
- * @var $count
+ * Результаты поиска элементов
+ *
+ * @var $id integer ID результата
+ * @var $url_id integer ID сайта
+ * @var $found string найденные элементы
+ * @var $count integer количество найденных элементов
  *
  * @package app\models
  */
@@ -30,7 +32,7 @@ class Result extends Model
     }
 
     /**
-     * @param $url
+     * @param integer $url_id
      *
      * @return $this
      */
@@ -42,7 +44,7 @@ class Result extends Model
     }
 
     /**
-     * @param $found
+     * @param string $found
      *
      * @return $this
      */
@@ -54,7 +56,7 @@ class Result extends Model
     }
 
     /**
-     * @param $count
+     * @param integer $count
      *
      * @return $this
      */
@@ -66,7 +68,8 @@ class Result extends Model
     }
 
     /**
-     * @param $params
+     * Поиск элементов и сохранение результата в БД
+     * @param mixed $params параметры поиска элементов
      *
      * @return bool|static
      */
@@ -113,7 +116,8 @@ class Result extends Model
     }
 
     /**
-     * @param $url
+     * Получение содержимого сайта по url
+     * @param string $url
      *
      * @return mixed
      */
@@ -134,9 +138,10 @@ class Result extends Model
     }
 
     /**
-     * @param $page
-     * @param $type
-     * @param null $text
+     * Поиск элементов на странице
+     * @param string $page содержимое страницы
+     * @param string $type тип поиска
+     * @param string|null $text текст для поиска на странице
      *
      * @return array
      */
@@ -170,7 +175,7 @@ class Result extends Model
     }
 
     /**
-     * @param $params
+     * @param array $params параметры поиска
      *
      * @return mixed
      */
@@ -210,6 +215,9 @@ class Result extends Model
     }
 
     /**
+     * Получение и обработка всех результатов из БД
+     * @var array $found массив найденных элементов
+     *
      * @return mixed
      */
     public static function findAll()

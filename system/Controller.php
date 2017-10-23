@@ -2,49 +2,47 @@
 namespace app\system;
 
 /**
- * Class Controller
+ * Контроллер
+ * @var string $id ID контроллера
+ * @var string $layout
+ * @var View $view
  *
  * @package app\system
  */
 class Controller {
     const CONTROLLER_NAMESPACE = 'app\\controllers\\';
 
-    public $id;
-    public $layout;
+    public $layout = 'main';
 
+    private $id;
     private $view;
 
     /**
-     * Controller constructor.
-     * @param $id
+     * @param string $id
      */
     public function __construct($id)
     {
         $this->id = $id;
-        $this->layout = 'main';
+        $this->view = new View();
+    }
+
+    /**
+     * @return string
+     */
+    public function getId() {
+        return $this->id;
     }
 
     /**
      * @return View
      */
     public function getView() {
-        if ($this->view === null) {
-            $this->view = new View($this->id);
-        }
-
         return $this->view;
     }
 
     /**
-     * @param $view
-     */
-    public function setView($view) {
-        $this->view = $view;
-    }
-
-    /**
-     * @param $template
-     * @param array $params
+     * @param string $template
+     * @param array $params параметры для вывода в шаблон
      *
      * @return string
      */
@@ -56,14 +54,14 @@ class Controller {
     }
 
     /**
-     * @param $template
-     * @param $params
+     * @param string $template
+     * @param array $params
      *
      * @return string
      */
     public function renderPartial($template, $params)
     {
-        return $this->getView()->render($template, $this->id, $params);
+        return $this->getView()->render($template, $this->getId(), $params);
     }
 
     /**

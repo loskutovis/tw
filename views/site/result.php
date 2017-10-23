@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $result mixed список результатов
+ * @var mixed $result список результатов
  */
 ?>
 <div class="index-container text-center">
